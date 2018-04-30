@@ -1,4 +1,4 @@
-package ir.paad.ztest
+package ir.paad.ztest.fragments
 
 import android.os.Bundle
 import android.support.v4.app.Fragment
@@ -8,6 +8,7 @@ import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import ir.paad.ztest.R
 
 import org.greenrobot.eventbus.EventBus
 
@@ -45,7 +46,7 @@ class TFragment : Fragment(), View.OnClickListener {
     inner class TAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
         val tArr = arrayOf("گوارش و کبد" , "پوست و مو" , "قلب و عروق" , "مغز و اعصاب", "بینایی" , "دندانپزشکی" , "عمومی", "جراح" , "داخلی" , "اطفال")
         override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
-            val v = LayoutInflater.from(activity).inflate(R.layout.t_list_item , parent , false)
+            val v = LayoutInflater.from(activity).inflate(R.layout.t_list_item, parent , false)
             return ItemHolder(v)
         }
 

@@ -1,4 +1,4 @@
-package ir.paad.ztest
+package ir.paad.ztest.adapters
 
 import android.content.Context
 import android.support.v7.widget.RecyclerView
@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import ir.paad.ztest.R
 
 class HListAdapter(ctx: Context) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     val context = ctx

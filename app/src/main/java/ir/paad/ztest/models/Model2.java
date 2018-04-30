@@ -1,4 +1,4 @@
-package ir.paad.ztest;
+package ir.paad.ztest.models;
 
 import com.google.gson.annotations.SerializedName;
 

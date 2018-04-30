@@ -1,4 +1,4 @@
-package ir.paad.ztest;
+package ir.paad.ztest.utils;
 
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;

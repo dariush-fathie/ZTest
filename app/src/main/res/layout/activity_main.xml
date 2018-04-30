@@ -2,8 +2,10 @@
 
 <android.support.v4.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/drawerLayout"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@color/back">
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -13,22 +15,24 @@
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="48dp"
-            android:background="#FFF">
+            android:background="@color/green">
 
             <android.support.v7.widget.AppCompatImageView
+                android:id="@+id/iv_menu"
                 android:layout_width="48dp"
                 android:layout_height="48dp"
                 android:layout_alignParentEnd="true"
                 android:padding="11dp"
                 android:src="@drawable/ic_menu"
-                app:tint="@color/green" />
+                app:tint="@color/white" />
 
             <android.support.v7.widget.AppCompatTextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerInParent="true"
                 android:text="بانک سلامت"
-                android:textSize="16sp"
+                android:textColor="@color/white"
+                android:textSize="17sp"
                 android:textStyle="bold"
                 app:fontFamily="@font/yekan" />
         </RelativeLayout>
@@ -67,9 +71,62 @@
             android:textColor="@color/colorPrimary"
             android:textSize="17sp" />
 
+        <LinearLayout
+            android:id="@+id/ll_netErr"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@+id/toolbar"
+            android:background="@color/white"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:visibility="gone">
+
+            <android.support.v7.widget.AppCompatImageView
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:src="@drawable/ic_neterror" />
+
+            <android.support.v7.widget.AppCompatButton
+                android:id="@+id/btn_tryAgain"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="تلاش مجدد" />
+
+            <android.support.v7.widget.AppCompatTextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="50dp"
+                android:gravity="center"
+                android:padding="16dp"
+                android:text="به اینترنت دسترسی ندارید ؟  نشان شده ها را ببیند"
+                app:fontFamily="@font/yekan" />
+
+            <android.support.v7.widget.AppCompatButton
+                android:id="@+id/btn_fav"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/white_round_rect"
+                android:text="نشان شده ها" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/ll_progressLayout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/white"
+            android:gravity="center">
+
+            <com.github.rahatarmanahmed.cpv.CircularProgressView
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                app:cpv_animAutostart="true"
+                app:cpv_indeterminate="true" />
+        </LinearLayout>
+
     </RelativeLayout>
 
-    <include layout="@layout/drawer_layout"/>
+    <include layout="@layout/drawer_layout" />
 
 </android.support.v4.widget.DrawerLayout>
 

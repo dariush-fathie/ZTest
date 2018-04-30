@@ -32,11 +32,11 @@
             app:cpv_indeterminate="true" />
     </LinearLayout>
 
-    <ir.paad.paadaudiobook.customView.CustomTabLayout
+    <ir.paad.ztest.customClasses.CustomTabLayout
         android:id="@+id/ctbl"
         android:layout_width="match_parent"
         android:layout_height="48dp"
-        android:background="@color/white"
+        android:background="@color/back"
         android:visibility="visible"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

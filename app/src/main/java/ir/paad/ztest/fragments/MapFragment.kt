@@ -1,4 +1,4 @@
-package ir.paad.ztest
+package ir.paad.ztest.fragments
 
 import android.content.Context
 import android.os.Bundle
@@ -7,10 +7,12 @@ import android.support.constraint.ConstraintLayout
 import android.support.design.widget.BottomSheetBehavior
 import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentTransaction
+import android.support.v4.content.ContextCompat
 import android.support.v7.widget.AppCompatImageView
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.LinearSnapHelper
 import android.support.v7.widget.RecyclerView
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -20,10 +22,21 @@ import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
+import com.google.android.gms.maps.model.PolylineOptions
+import com.google.maps.DirectionsApi
+import com.google.maps.DirectionsApiRequest
+import com.google.maps.GeoApiContext
+import com.google.maps.model.DirectionsResult
+import com.google.maps.model.TravelMode
+import ir.paad.ztest.R
+import ir.paad.ztest.adapters.HListAdapter
+import ir.paad.ztest.customClasses.CustomBottomSheetBehavior
 import org.greenrobot.eventbus.EventBus
+import java.util.concurrent.TimeUnit
 
 class MapFragment : Fragment(), OnMapReadyCallback, View.OnClickListener {
     override fun onClick(v: View?) {
+        directionRequest()
         if (bottomSheetBehavior.state == BottomSheetBehavior.STATE_EXPANDED) {
             bottomSheetBehavior.state = BottomSheetBehavior.STATE_COLLAPSED
             ivToggle.rotation = 180f
@@ -56,7 +69,7 @@ class MapFragment : Fragment(), OnMapReadyCallback, View.OnClickListener {
         if (bottomSheetBehavior is CustomBottomSheetBehavior) {
             (bottomSheetBehavior as CustomBottomSheetBehavior).setAllowUserDragging(false)
         }
-        mapList.layoutManager = LinearLayoutManager(activity, LinearLayoutManager.HORIZONTAL, false)
+        mapList.layoutManager = LinearLayoutManager(activity as Context, LinearLayoutManager.HORIZONTAL, false)
         mapList.adapter = HListAdapter(activity as Context)
         LinearSnapHelper().attachToRecyclerView(mapList)
     }
@@ -85,6 +98,44 @@ class MapFragment : Fragment(), OnMapReadyCallback, View.OnClickListener {
         googleMap.addMarker(MarkerOptions().position(sydney).title("Marker in Sydney"))
         googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(sydney, 19f))
         Handler().postDelayed({ EventBus.getDefault().post("loaded") }, 150)
+    }
+
+
+    private fun getGeoContext(): GeoApiContext {
+        val geoApiContext = GeoApiContext.Builder()
+        geoApiContext.apiKey("AIzaSyCm-u-iixYF5kWnK5xNSrswvd7hxA2WUkk")
+        geoApiContext.queryRateLimit(3)
+        geoApiContext.connectTimeout(5, TimeUnit.SECONDS)
+        geoApiContext.writeTimeout(5, TimeUnit.SECONDS)
+        geoApiContext.readTimeout(5, TimeUnit.SECONDS)
+        return geoApiContext.build()
+    }
+
+    private fun directionRequest() {
+        val origin: com.google.maps.model.LatLng = com.google.maps.model.LatLng(35.307400, 46.994016)
+        val destination: com.google.maps.model.LatLng = com.google.maps.model.LatLng(35.317059, 46.999075)
+        val directionReq: DirectionsApiRequest = DirectionsApi.newRequest(getGeoContext())
+        directionReq.destination(origin)
+        directionReq.origin(destination)
+        directionReq.mode(TravelMode.DRIVING)
+        directionReq.alternatives(false)
+        try {
+            addPolyline(directionReq.await(), map)
+        } catch (e: Exception) {
+            Log.e("ERR", e.message + " ")
+        }
+
+    }
+
+    private fun addPolyline(results: DirectionsResult, mMap: GoogleMap) {
+        val decodedPath = results.routes[0].overviewPolyline.decodePath()
+        val paths = ArrayList<com.google.android.gms.maps.model.LatLng>()
+        Log.e("path", "${decodedPath.size}${decodedPath.toString()}")
+        decodedPath.forEach { path: com.google.maps.model.LatLng ->
+            paths.add(com.google.android.gms.maps.model.LatLng(path.lat, path.lng))
+        }
+        Log.e("paths", "${paths.size}${paths.toString()}")
+        mMap.addPolyline(PolylineOptions().addAll(paths).color(ContextCompat.getColor(activity as Context, R.color.green)))
     }
 
 

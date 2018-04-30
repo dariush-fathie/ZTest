@@ -1,4 +1,4 @@
-package ir.paad.ztest
+package ir.paad.ztest.customClasses
 
 import android.content.Context
 import android.os.Handler
@@ -9,6 +9,9 @@ import android.support.v4.app.FragmentManager
 import android.util.Log
 import android.view.View
 import android.widget.LinearLayout
+import ir.paad.ztest.fragments.MapFragment
+import ir.paad.ztest.R
+import ir.paad.ztest.fragments.TFragment
 
 class TabLayoutInterface(ctx: Context, fm: FragmentManager, behavior: BottomSheetBehavior<ConstraintLayout>, progressLayout: LinearLayout) : TabLayout.OnTabSelectedListener {
 

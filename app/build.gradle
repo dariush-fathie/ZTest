@@ -3,6 +3,8 @@ apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 
 apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-kapt'
+apply plugin: 'realm-android'
 
 android {
     compileSdkVersion 27
@@ -35,4 +37,7 @@ dependencies {
     implementation 'com.google.android.gms:play-services-maps:15.0.0'
     implementation 'com.github.rahatarmanahmed:circularprogressview:2.5.0'
     implementation 'org.greenrobot:eventbus:3.1.1'
+    implementation 'com.google.maps:google-maps-services:0.2.7'
+    implementation 'org.slf4j:slf4j-nop:1.7.25'
+
 }

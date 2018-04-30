@@ -1,8 +1,12 @@
-package ir.paad.ztest
+package ir.paad.ztest.activitys
 
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.util.Log
+import ir.paad.ztest.utils.ApiClient
+import ir.paad.ztest.utils.ApiInterface
+import ir.paad.ztest.models.Model2
+import ir.paad.ztest.R
 
 import retrofit2.Call
 import retrofit2.Callback
