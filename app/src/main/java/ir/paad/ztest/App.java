@@ -2,6 +2,8 @@ package ir.paad.ztest;
 
 import android.app.Application;
 
+import com.google.firebase.analytics.FirebaseAnalytics;
+
 import io.realm.Realm;
 import io.realm.RealmConfiguration;
 
@@ -20,5 +22,7 @@ public class App extends Application {
 
 
         Realm.setDefaultConfiguration(config);
+
+        FirebaseAnalytics.getInstance(this);
     }
 }
